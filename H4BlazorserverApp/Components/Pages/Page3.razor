@@ -1,0 +1,21 @@
+﻿@page "/page3"
+
+<h3>Page3</h3>
+
+    <AuthorizeView>
+        <Authorized>
+            <div>
+            Du er <b>Logged-in</b>
+            </div>
+        </Authorized>
+
+       <NotAuthorized>
+           <div>
+            Du er <b>ikke</b> Logged-in
+           </div>
+       </NotAuthorized>
+
+    </AuthorizeView>
+
+@code {
+}

@@ -1,0 +1,37 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Identity
+@inject IServiceProvider serviceProvider
+@inject UserManager<Data.ApplicationUser> UserManager;
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<a href=":;" onclick="sayHello()">say Hello</a>
+<br />
+<a href="/page2">go to page 2</a>
+<br />
+<a href="/page3">go to page 3</a>
+<br />
+<a href="/page4">go to page 4</a>
+
+@code{
+    protected async override Task OnInitializedAsync(){
+      //  await CreateUserRoles("hait0029@gmail.com", "Admin");
+    }
+
+    public async Task CreateUserRoles(string user, string role)
+    {
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        var userManager = UserManager;
+
+        var userRoleCheck = await roleManager.RoleExistsAsync(role);
+
+        if (!userRoleCheck)
+            await roleManager.CreateAsync(new Microsoft.AspNetCore.Identity.IdentityRole(role));
+
+        H4BlazorserverApp.Data.ApplicationUser identityUser = await userManager.FindByEmailAsync(user);
+        await userManager.AddToRoleAsync(identityUser, role);
+    }
+}
