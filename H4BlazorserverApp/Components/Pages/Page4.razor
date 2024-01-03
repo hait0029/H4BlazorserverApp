@@ -2,21 +2,20 @@
 @using Microsoft.AspNetCore.Authorization;
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Page4</h3>
-<AuthorizeView>
+
+<AuthorizeView Roles="Admin">
     <Authorized>
-        <div>
-            Du er <b>Logged-in</b>
-        </div>
+        <div><h3>Adgang tilladt fordi du er admin.</h3></div>
     </Authorized>
 
     <NotAuthorized>
-        <div>
-            Du er <b>ikke</b> Logged-in
-        </div>
+
+        <div><h3>Adgang nægtet, du er <b>IKKE</b> admin.</h3></div>
+
     </NotAuthorized>
 
 </AuthorizeView>
+<h3>Page4</h3>
 @code {
 
 }

@@ -1,9 +1,22 @@
 ﻿@page "/page2"
 @using Microsoft.AspNetCore.Authorization;
+@inject AuthenticationStateProvider _authenticationStateProvider;
+
 @attribute [Authorize(Policy = "Haittham")]
 
 <h3>Welcome to page 2</h3>
-
+<h2>page 2</h2>
 @code {
+    public bool IsAuthenticated { get; set; }
+    public bool IsAuthorized { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+        var user = authState.User;
+
+        IsAuthenticated = user.Identity.IsAuthenticated;
+        IsAuthorized = user.IsInRole("Admin");
+    }
 }

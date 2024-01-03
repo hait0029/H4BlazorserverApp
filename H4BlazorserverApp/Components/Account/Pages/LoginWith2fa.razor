@@ -63,14 +63,14 @@
         user = await SignInManager.GetTwoFactorAuthenticationUserAsync() ??
             throw new InvalidOperationException("Unable to load two-factor authentication user.");
 
-        var token = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultEmailProvider);
+        //var token = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultEmailProvider);
     }
 
     private async Task OnValidSubmitAsync()
     {
         var authenticatorCode = Input.TwoFactorCode!.Replace(" ", string.Empty).Replace("-", string.Empty);
 
-        var result = await SignInManager.TwoFactorSignInAsync(TokenOptions.DefaultEmailProvider,authenticatorCode, RememberMe, Input.RememberMachine);
+        var result = await SignInManager.TwoFactorSignInAsync(TokenOptions.DefaultAuthenticatorProvider,authenticatorCode, RememberMe, Input.RememberMachine);
 
         var userId = await UserManager.GetUserIdAsync(user);
 
