@@ -9,6 +9,8 @@
 @code {
     public bool IsAuthenticated { get; set; }
     public bool IsAuthorized { get; set; }
+    public string s { get; set; }
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,5 +20,9 @@
 
         IsAuthenticated = user.Identity.IsAuthenticated;
         IsAuthorized = user.IsInRole("Admin");
+
+         s = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        // //File.Create(@"C:\Users\Tec\hait.txt); //for windows
+         File.Create(s);
     }
 }

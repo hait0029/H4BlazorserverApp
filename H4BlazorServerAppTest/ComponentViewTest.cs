@@ -82,5 +82,30 @@ namespace H4BlazorServerAppTest
             // Assert
             Assert.False(isAuthorized);
         }
+
+
+        [Fact]
+        public void TestCreateFile()
+        {
+            // Arrange
+            using var ctx = new TestContext();
+            var authContext = ctx.AddTestAuthorization();
+            authContext.SetAuthorized("");
+
+            var tempDirectory = Path.Combine(Path.GetTempPath(), "TestDirectory");
+            Directory.CreateDirectory(tempDirectory);
+
+            // Act
+            var cut = ctx.RenderComponent<Page2>();
+            var instance = cut.Instance;
+            string s = Path.Combine(tempDirectory, "hait.txt");
+
+            // Assert
+            Assert.True(string.IsNullOrEmpty(s), "s should be null or empty.");
+
+            // Clean up
+            Directory.Delete(tempDirectory, true);
+        }
+
     }
 }
